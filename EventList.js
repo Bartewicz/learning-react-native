@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { StyleSheet, View, FlatList, Text } from "react-native";
 import * as db from "./db.json";
+import EventCard from "./EventCard";
 
-class EventList extends Component {
+export default class EventList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,20 +12,21 @@ class EventList extends Component {
   }
 
   componentDidMount = () => {
-    const events = db.events;
+    const events = db.events.map((e) => ({
+      ...e,
+      date: new Date(e.date),
+    }));
     this.setState({ events });
   };
 
   render() {
     return (
-        <FlatList
-          style={styles.list}
-          data={this.state.events}
-          renderItem={({ item }) => (
-            <Text style={styles.listElement}>{item.title}</Text>
-          )}
-          keyExtractor={(item) => item.id}
-        />
+      <FlatList
+        style={styles.list}
+        data={this.state.events}
+        renderItem={({ item }) => <EventCard event={item} />}
+        keyExtractor={(item) => item.id}
+      />
     );
   }
 }
@@ -33,7 +35,6 @@ const styles = StyleSheet.create({
   list: {
     backgroundColor: "steelblue",
     flexGrow: 0,
-    padding: 20,
   },
   listElement: {
     color: "white",
@@ -41,5 +42,3 @@ const styles = StyleSheet.create({
     height: 20,
   },
 });
-
-export default EventList;
