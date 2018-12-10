@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { formatDate, getCountdownParts } from "./api.js";
 
 const EventCard = ({ event }) => {
-  const { days, hours, minutes, seconds } = getCountdownParts(event.date);
+  const { days, hours, minutes, seconds } = getCountdownParts(event.date, event.currentTime);
 
   return (
     <View style={styles.card}>
@@ -42,14 +42,57 @@ EventCard.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  card: {},
-  cardHeader: {},
-  date: {},
-  title: {},
-  counterContainer: {},
-  counter: {},
-  counterText: {},
-  counterLabel: {},
+  card: {
+    backgroundColor: "white",
+    flex: 1,
+    padding: 10,
+    paddingBottom: 20,
+    margin: 10,
+    marginTop: 5,
+    marginBottom: 5,
+  },
+  cardHeader: {
+    width: "100%",
+    flex: 1,
+    flexDirection: "row",
+    color: "steelblue",
+  },
+  date: {
+    color: "steelblue",
+    width: "30%",
+    textAlign: "left",
+    fontSize: 15,
+    fontWeight: "200",
+  },
+  title: {
+    fontSize: 15,
+    fontWeight: "300",
+    textAlign: "right",
+    color: "steelblue",
+  },
+  counterContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingLeft: "5%",
+    paddingRight: "5%",
+  },
+  counter: {
+    width: "25%",
+    flex: 1,
+  },
+  counterText: {
+    fontSize: 40,
+    textAlign: "center",
+    color: "steelblue",
+  },
+  counterLabel: {
+    fontSize: 13,
+    fontWeight: "100",
+    paddingTop: 0,
+    textAlign: "center",
+    color: "steelblue",
+  },
 });
 
 export default EventCard;

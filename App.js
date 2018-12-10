@@ -21,10 +21,8 @@ class App extends Component {
 
 const styles = StyleSheet.create({
   main: {
-    backgroundColor: "powderblue",
+    // backgroundColor: "powderblue",
     flex: 1,
-    justifyContent: "center",
-    alignItems: "stretch",
   },
 });
 

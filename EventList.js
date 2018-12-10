@@ -3,7 +3,7 @@ import { StyleSheet, View, FlatList, Text } from "react-native";
 import * as db from "./db.json";
 import EventCard from "./EventCard";
 
-export default class EventList extends Component {
+class EventList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,12 +12,21 @@ export default class EventList extends Component {
   }
 
   componentDidMount = () => {
-    const events = db.events.map((e) => ({
-      ...e,
-      date: new Date(e.date),
-    }));
-    this.setState({ events });
+    this.updateState()
+    setInterval(() => {
+      this.updateState()
+    }, 1000);
   };
+
+  updateState = () => {
+    this.setState({
+      events: db.events.map((e) => ({
+        ...e,
+        currentTime: Date.now(),
+        date: new Date(e.date),
+      })),
+    });
+  }
 
   render() {
     return (
@@ -34,11 +43,8 @@ export default class EventList extends Component {
 const styles = StyleSheet.create({
   list: {
     backgroundColor: "steelblue",
-    flexGrow: 0,
-  },
-  listElement: {
-    color: "white",
-    textAlign: "center",
-    height: 20,
+    flex: 1,
   },
 });
+
+export default EventList;

@@ -10,9 +10,9 @@ export function formatDate(dateString) {
   return parsed.format("D MMM YYYY");
 }
 
-export function getCountdownParts(eventDate) {
+export function getCountdownParts(eventDate, currentTime) {
   const duration = moment.duration(
-    moment(new Date(eventDate)).diff(new Date()),
+    moment(new Date(eventDate)).diff(currentTime),
   );
   return {
     days: parseInt(duration.as("days")),
