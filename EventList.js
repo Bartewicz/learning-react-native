@@ -12,9 +12,9 @@ class EventList extends Component {
   }
 
   componentDidMount = () => {
-    this.updateState()
+    this.updateState();
     setInterval(() => {
-      this.updateState()
+      this.updateState();
     }, 1000);
   };
 
@@ -22,17 +22,17 @@ class EventList extends Component {
     this.setState({
       events: db.events.map((e) => ({
         ...e,
-        currentTime: Date.now(),
         date: new Date(e.date),
       })),
     });
-  }
+  };
 
   render() {
     return (
       <FlatList
         style={styles.list}
         data={this.state.events}
+        extraData={this.state}
         renderItem={({ item }) => <EventCard event={item} />}
         keyExtractor={(item) => item.id}
       />
