@@ -1,6 +1,7 @@
-import React, { Component } from "react";
-import { Platform, StyleSheet, View } from "react-native";
-import EventList from "./EventList";
+import { createStackNavigator, createAppContainer } from "react-navigation";
+import { Platform } from "react-native";
+import EventList from "./components/EventList";
+import EventForm from "./components/EventForm";
 
 const instructions = Platform.select({
   ios: "Press Cmd+R to reload,\n" + "Cmd+D or shake for dev menu",
@@ -9,21 +10,24 @@ const instructions = Platform.select({
     "Shake or press menu button for dev menu",
 });
 
-class App extends Component {
-  render() {
-    return (
-      <View style={styles.main}>
-        <EventList />
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  main: {
-    // backgroundColor: "powderblue",
-    flex: 1,
+const AppNavigator = createStackNavigator(
+  {
+    List: {
+      screen: EventList,
+      navigationOptions: {
+        title: "Events",
+      },
+    },
+    Form: {
+      screen: EventForm,
+      navigationOptions: {
+        title: "Add an event",
+      },
+    },
   },
-});
+  {
+    initialRouteName: "List",
+  },
+);
 
-export default App;
+export default createAppContainer(AppNavigator);
