@@ -47,12 +47,8 @@ class EventForm extends Component {
   render() {
     const { navigation } = this.props;
     return [
-      <View
-        style={{
-          flex: 1,
-        }}
-      >
-        <View key="event-form" style={styles.fieldContainer}>
+      <View key="event-form" style={styles.formWrapper}>
+        <View style={styles.fieldContainer}>
           <TextInput
             style={styles.text}
             onChangeText={this.handleChangeTitle}
@@ -90,6 +86,9 @@ class EventForm extends Component {
 }
 
 const styles = StyleSheet.create({
+  formWrapper: {
+    flex: 1,
+  },
   fieldContainer: {
     marginTop: 20,
     marginBottom: 20,
@@ -97,7 +96,6 @@ const styles = StyleSheet.create({
   },
   text: {
     height: 40,
-    // borderWidth: 1,
     margin: 0,
     marginLeft: 7,
     marginRight: 7,
