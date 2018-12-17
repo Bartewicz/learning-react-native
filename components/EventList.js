@@ -7,6 +7,7 @@ import * as db from "../db.json";
 class EventList extends Component {
   state = {
     events: [],
+    previouslyAddedEventId: "",
   };
 
   componentDidMount = () => {
@@ -17,11 +18,19 @@ class EventList extends Component {
   };
 
   updateState = () => {
+    const events = db.events.map((e) => ({
+      ...e,
+      date: new Date(e.date),
+    }));
+    const newEvent = this.props.navigation.getParam("newEvent");
+    if (
+      newEvent !== undefined &&
+      this.state.previouslyAddedEventId !== newEvent.id
+    ) {
+      events.push(newEvent);
+    }
     this.setState({
-      events: db.events.map((e) => ({
-        ...e,
-        date: new Date(e.date),
-      })),
+      events,
     });
   };
 
@@ -39,7 +48,9 @@ class EventList extends Component {
       </View>,
       <ActionsButton
         key="event-list-actions"
-        navigateToForm={() => navigation.navigate("Form")}
+        navigateToForm={() =>
+          navigation.navigate("Form", { events: this.state.events })
+        }
         navigateToList={() => navigation.navigate("List")}
       />,
     ];

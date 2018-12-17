@@ -23,7 +23,6 @@ class EventForm extends Component {
 
   handleDatePicked = (date) => {
     this.setState({ date });
-
     this.handleDatePickerHide();
   };
 
@@ -40,8 +39,18 @@ class EventForm extends Component {
   };
 
   handleAddPress = () => {
-    console.log("saving event: ", this.state);
-    this.props.navigation.navigate("List");
+    const { title, date } = this.state;
+    const id = Date.now().toString()
+    if (title && date) {
+      this.setState({
+        title: null,
+        date: "",
+      });
+      // console.log(title, date);
+      this.props.navigation.push("List", {
+        newEvent: { title, date, id },
+      });
+    }
   };
 
   render() {
@@ -71,7 +80,6 @@ class EventForm extends Component {
             onCancel={this.handleDatePickerHide}
           />
         </View>
-
         <TouchableHighlight onPress={this.handleAddPress} style={styles.button}>
           <Text style={styles.buttonText}>Add</Text>
         </TouchableHighlight>
